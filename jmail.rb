@@ -1,10 +1,10 @@
 require 'sinatra'
 
-set :environment, :prduction
+set :environment, :production
 
-set :sessinons,
+set :sessions,
   expire_after: 7200,
-  secret: 'abcdefghij0123456789'
+  secret: 'abcdefghij01234567899999999999999999999999999999999999999999999999999999999999999999999'
 
 get '/' do
   redirect '/login'
