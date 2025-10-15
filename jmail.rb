@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 
 set :environment, :production
 
 set :sessions,
-  expire_after: 7200,
-  secret: 'abcdefghij01234567899999999999999999999999999999999999999999999999999999999999999999999'
+    expire_after: 7200,
+    secret: ENV['SESSION_SECRET']
 
 get '/' do
   redirect '/login'
@@ -18,9 +20,9 @@ post '/auth' do
   username = params[:uname]
   pass = params[:pass]
 
-  if ((username == "foo") && (pass == "bar"))
+  if (username == 'foo') && (pass == 'bar')
     session[:login_flag] = true
-    session[:testdata] = "Brontosaurus"
+    session[:testdata] = 'Brontosaurus'
     redirect '/contentspage'
   else
     session[:login_flag] = false
@@ -29,7 +31,7 @@ post '/auth' do
 end
 
 get '/contentspage' do
-  if (session[:login_flag] == true)
+  if session[:login_flag] == true
     @a = session[:testdata]
     erb :contents
   else
